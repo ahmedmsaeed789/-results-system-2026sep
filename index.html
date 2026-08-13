@@ -1,85 +1,219 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>النتيجة العامة لنظام الفصول</title>
 
-  <title>نظام النتائج</title>
+<style>
+*{box-sizing:border-box}
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f2f5f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+body{
+  margin:0;
+  font-family:Arial,Tahoma,sans-serif;
+  background:#eeeeee;
+  color:#111;
+}
 
-    .box {
-      background: white;
-      width: 85%;
-      max-width: 400px;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.12);
-      text-align: center;
-    }
+.login{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    h1 {
-      color: #1d4ed8;
-      margin-bottom: 25px;
-    }
+.login-box{
+  width:90%;
+  max-width:400px;
+  background:white;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 5px 20px #aaa;
+  text-align:center;
+}
 
-    input {
-      width: 90%;
-      padding: 14px;
-      margin: 8px 0;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 16px;
-      text-align: right;
-    }
+.login-box h1{
+  color:#1d4ed8;
+  margin-bottom:25px;
+}
 
-    button {
-      width: 98%;
-      padding: 14px;
-      margin-top: 15px;
-      border: none;
-      border-radius: 10px;
-      background: #1d4ed8;
-      color: white;
-      font-size: 17px;
-      cursor: pointer;
-    }
+.login-box input{
+  width:100%;
+  padding:13px;
+  margin:7px 0;
+  border:1px solid #ccc;
+  border-radius:5px;
+  font-size:16px;
+}
 
-    button:hover {
-      background: #1741b5;
-    }
+.login-box button{
+  width:100%;
+  padding:13px;
+  margin-top:12px;
+  border:0;
+  border-radius:5px;
+  background:#1d4ed8;
+  color:white;
+  font-size:17px;
+}
 
-    #result {
-      display: none;
-    }
+#error{
+  color:red;
+  margin-top:10px;
+}
 
-    .success {
-      color: green;
-      font-size: 20px;
-      font-weight: bold;
-    }
+.hidden{
+  display:none!important;
+}
 
-    .mark {
-      font-size: 40px;
-      color: #1d4ed8;
-      font-weight: bold;
-      margin: 20px;
-    }
-  </style>
+.topbar{
+  background:linear-gradient(#596772,#252d33);
+  color:white;
+  padding:8px 12px;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  background:#eee;
+  min-height:100vh;
+}
+
+.info{
+  background:#ddd;
+  border:1px solid #aaa;
+  padding:10px;
+  font-weight:bold;
+}
+
+.toolbar{
+  padding:10px;
+  background:#ddd;
+  border:1px solid #aaa;
+}
+
+.toolbar button{
+  padding:9px 15px;
+  margin:3px;
+  border:0;
+  color:white;
+  background:#555;
+  cursor:pointer;
+}
+
+.toolbar .save{
+  background:#168b45;
+}
+
+.toolbar .add{
+  background:#e65c4d;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  border:1px solid #c7bebe;
+  padding:8px 5px;
+  text-align:center;
+  font-size:14px;
+}
+
+th{
+  background:#d8cece;
+}
+
+.subject{
+  text-align:right;
+  width:40%;
+  padding-right:15px;
+}
+
+.year{
+  background:#ff6659;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.weak{
+  background:#fff477;
+}
+
+.total{
+  background:#c9bebc;
+  font-weight:bold;
+}
+
+.edit{
+  width:90%;
+  padding:6px;
+  border:1px solid #999;
+  text-align:center;
+  background:white;
+}
+
+.small{
+  padding:6px 9px;
+  border:0;
+  color:white;
+  background:#555;
+  margin:2px;
+}
+
+.delete{
+  background:#b22;
+}
+
+.addsubject{
+  background:#168b45;
+}
+
+.footer{
+  text-align:center;
+  background:#ddd;
+  padding:12px;
+  font-weight:bold;
+}
+
+.logout{
+  margin:15px;
+  padding:10px 20px;
+  background:#555;
+  color:white;
+  border:0;
+}
+
+@media(max-width:650px){
+
+  .topbar{
+    font-size:16px;
+  }
+
+  th,td{
+    font-size:11px;
+    padding:6px 3px;
+  }
+
+  .subject{
+    width:38%;
+    padding-right:5px;
+  }
+
+}
+</style>
 </head>
 
 <body>
 
-  <div class="box" id="login">
+<!-- LOGIN -->
+
+<div id="loginPage" class="login">
+
+  <div class="login-box">
 
     <h1>نظام النتائج</h1>
 
@@ -99,46 +233,676 @@
       تسجيل الدخول
     </button>
 
-    <p id="error" style="color:red;"></p>
+    <div id="error"></div>
 
   </div>
 
+</div>
 
-  <div class="box" id="result">
 
-    <h1>نتيجتك</h1>
+<!-- STUDENT -->
 
-    <p>أهلاً بك</p>
+<div id="studentPage" class="container hidden">
 
-    <p class="success">تم تسجيل الدخول بنجاح</p>
+  <div class="topbar">
+    النتيجة العامة لنظام الفصول
+  </div>
 
-    <p>النتيجة النهائية</p>
+  <div class="info">
+    اسم الطالب: الطالب
+    &nbsp;&nbsp;&nbsp;
+    المرحلة: الخامسة
+  </div>
 
-    <div class="mark">85 / 100</div>
+  <div id="studentResults"></div>
 
-    <p>مبروك 🎉</p>
+  <button class="logout" onclick="logout()">
+    تسجيل الخروج
+  </button>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div id="adminPage" class="container hidden">
+
+  <div class="topbar">
+    لوحة إدارة النتائج
+  </div>
+
+  <div class="toolbar">
+
+    <button class="add" onclick="addStage()">
+      + إضافة مرحلة
+    </button>
+
+    <button class="save" onclick="saveData()">
+      💾 حفظ التعديلات
+    </button>
+
+    <button onclick="logout()">
+      تسجيل الخروج
+    </button>
 
   </div>
+
+  <div id="adminResults"></div>
+
+</div>
 
 
 <script>
 
-function login() {
+/* =========================
+   بيانات النتائج
+========================= */
 
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
+let results = [
 
-  if (username === "student" && password === "123456") {
+  {
+    name:"المرحلة الخامسة",
+    
+    subjects:[
 
-    document.getElementById("login").style.display = "none";
-    document.getElementById("result").style.display = "block";
+      {
+        name:"الاستعاضة السنية المثبتة",
+        max:"150",
+        score:"97.75",
+        grade:"جيد"
+      },
 
-  } else {
+      {
+        name:"الاستعاضة الصناعية لطب الأسنان",
+        max:"150",
+        score:"91.5",
+        grade:"مقبول"
+      },
 
-    document.getElementById("error").innerText =
-      "اسم المستخدم أو كلمة المرور غير صحيحة";
+      {
+        name:"العلاج التحفظي",
+        max:"150",
+        score:"98.5",
+        grade:"جيد"
+      },
+
+      {
+        name:"أمراض اللثة",
+        max:"100",
+        score:"65",
+        grade:"جيد"
+      },
+
+      {
+        name:"جراحة الفم والوجه والفكين",
+        max:"150",
+        score:"83",
+        grade:"ضعيف"
+      },
+
+      {
+        name:"طب أسنان الأطفال",
+        max:"150",
+        score:"90",
+        grade:"مقبول"
+      },
+
+      {
+        name:"طب الفم",
+        max:"100",
+        score:"51",
+        grade:"ضعيف"
+      },
+
+      {
+        name:"علاج الجذور",
+        max:"100",
+        score:"60",
+        grade:"مقبول"
+      }
+
+    ]
 
   }
+
+];
+
+
+/* =========================
+   تحميل البيانات المحفوظة
+========================= */
+
+let saved = localStorage.getItem("myResults");
+
+if(saved){
+
+  results = JSON.parse(saved);
+
+}
+
+
+/* =========================
+   تسجيل الدخول
+========================= */
+
+function login(){
+
+  let username =
+    document.getElementById("username").value.trim();
+
+  let password =
+    document.getElementById("password").value.trim();
+
+
+  /* الطالب */
+
+  if(
+    username === "student" &&
+    password === "123456"
+  ){
+
+    document
+      .getElementById("loginPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("studentPage")
+      .classList.remove("hidden");
+
+    showStudent();
+
+    return;
+
+  }
+
+
+  /* المدير */
+
+  if(
+    username === "admin" &&
+    password === "admin123"
+  ){
+
+    document
+      .getElementById("loginPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("adminPage")
+      .classList.remove("hidden");
+
+    showAdmin();
+
+    return;
+
+  }
+
+
+  document.getElementById("error").innerText =
+    "اسم المستخدم أو كلمة المرور غير صحيحة";
+
+}
+
+
+/* =========================
+   عرض نتيجة الطالب
+========================= */
+
+function showStudent(){
+
+  let html = "";
+
+
+  results.forEach(function(stage){
+
+    html += `
+
+    <table>
+
+      <tr>
+
+        <td colspan="5" class="year">
+          ${stage.name}
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <th>التقدير</th>
+        <th>الدرجة</th>
+        <th>الدرجة</th>
+        <th></th>
+        <th>المواد</th>
+
+      </tr>
+
+    `;
+
+
+    stage.subjects.forEach(function(subject){
+
+      let weak =
+        subject.grade === "ضعيف"
+        ? "weak"
+        : "";
+
+
+      html += `
+
+      <tr class="${weak}">
+
+        <td>
+          ${subject.grade}
+        </td>
+
+        <td>
+          ${subject.max}
+        </td>
+
+        <td>
+          ${subject.score}
+        </td>
+
+        <td></td>
+
+        <td class="subject">
+          ${subject.name}
+        </td>
+
+      </tr>
+
+      `;
+
+    });
+
+
+    html += `
+
+      <tr class="total">
+
+        <td>
+          مواد
+        </td>
+
+        <td>
+          التقدير الكلي
+        </td>
+
+        <td>
+          ${calculateTotal(stage)}
+        </td>
+
+        <td></td>
+
+        <td class="subject">
+          المجموع الكلي
+        </td>
+
+      </tr>
+
+    </table>
+
+    `;
+
+  });
+
+
+  html += `
+
+  <div class="footer">
+    المرحلة الخامسة فقط
+  </div>
+
+  `;
+
+
+  document.getElementById("studentResults").innerHTML =
+    html;
+
+}
+
+
+/* =========================
+   حساب المجموع
+========================= */
+
+function calculateTotal(stage){
+
+  let total = 0;
+
+  stage.subjects.forEach(function(subject){
+
+    total += Number(subject.score) || 0;
+
+  });
+
+  return total.toFixed(2);
+
+}
+
+
+/* =========================
+   لوحة المدير
+========================= */
+
+function showAdmin(){
+
+  let html = "";
+
+
+  results.forEach(function(stage, stageIndex){
+
+    html += `
+
+    <table>
+
+      <tr>
+
+        <td colspan="6" class="year">
+
+          <input
+            class="edit"
+            value="${stage.name}"
+            onchange="
+              results[${stageIndex}].name=this.value
+            "
+          >
+
+        </td>
+
+      </tr>
+
+
+      <tr>
+
+        <th>المادة</th>
+        <th>الدرجة</th>
+        <th>الدرجة</th>
+        <th>التقدير</th>
+        <th>إجراء</th>
+        <th></th>
+
+      </tr>
+
+    `;
+
+
+    stage.subjects.forEach(function(subject, subjectIndex){
+
+      let weak =
+        subject.grade === "ضعيف"
+        ? "weak"
+        : "";
+
+
+      html += `
+
+      <tr class="${weak}">
+
+        <td class="subject">
+
+          <input
+            class="edit"
+            value="${subject.name}"
+            onchange="
+              results[${stageIndex}]
+              .subjects[${subjectIndex}]
+              .name=this.value
+            "
+          >
+
+        </td>
+
+
+        <td>
+
+          <input
+            class="edit"
+            type="number"
+            value="${subject.max}"
+            onchange="
+              results[${stageIndex}]
+              .subjects[${subjectIndex}]
+              .max=this.value
+            "
+          >
+
+        </td>
+
+
+        <td>
+
+          <input
+            class="edit"
+            type="number"
+            step="0.01"
+            value="${subject.score}"
+            onchange="
+              results[${stageIndex}]
+              .subjects[${subjectIndex}]
+              .score=this.value
+            "
+          >
+
+        </td>
+
+
+        <td>
+
+          <input
+            class="edit"
+            value="${subject.grade}"
+            onchange="
+              results[${stageIndex}]
+              .subjects[${subjectIndex}]
+              .grade=this.value
+            "
+          >
+
+        </td>
+
+
+        <td>
+
+          <button
+            class="small delete"
+            onclick="
+              deleteSubject(
+                ${stageIndex},
+                ${subjectIndex}
+              )
+            "
+          >
+            حذف
+          </button>
+
+        </td>
+
+        <td></td>
+
+      </tr>
+
+      `;
+
+    });
+
+
+    html += `
+
+      <tr>
+
+        <td colspan="6">
+
+          <button
+            class="small addsubject"
+            onclick="
+              addSubject(${stageIndex})
+            "
+          >
+            + إضافة مادة
+          </button>
+
+
+          <button
+            class="small delete"
+            onclick="
+              deleteStage(${stageIndex})
+            "
+          >
+            حذف المرحلة
+          </button>
+
+        </td>
+
+      </tr>
+
+    </table>
+
+    `;
+
+  });
+
+
+  document.getElementById("adminResults").innerHTML =
+    html;
+
+}
+
+
+/* =========================
+   إضافة مادة
+========================= */
+
+function addSubject(stageIndex){
+
+  results[stageIndex].subjects.push({
+
+    name:"مادة جديدة",
+
+    max:"100",
+
+    score:"0",
+
+    grade:"مقبول"
+
+  });
+
+
+  showAdmin();
+
+}
+
+
+/* =========================
+   حذف مادة
+========================= */
+
+function deleteSubject(stageIndex,subjectIndex){
+
+  if(
+    confirm("هل تريد حذف هذه المادة؟")
+  ){
+
+    results[stageIndex]
+      .subjects
+      .splice(subjectIndex,1);
+
+    showAdmin();
+
+  }
+
+}
+
+
+/* =========================
+   إضافة مرحلة
+========================= */
+
+function addStage(){
+
+  let name =
+    prompt(
+      "اكتب اسم المرحلة الجديدة"
+    );
+
+
+  if(!name){
+
+    return;
+
+  }
+
+
+  results.push({
+
+    name:name,
+
+    subjects:[
+
+      {
+        name:"مادة جديدة",
+        max:"100",
+        score:"0",
+        grade:"مقبول"
+      }
+
+    ]
+
+  });
+
+
+  showAdmin();
+
+}
+
+
+/* =========================
+   حذف مرحلة
+========================= */
+
+function deleteStage(stageIndex){
+
+  if(
+    confirm("هل تريد حذف هذه المرحلة؟")
+  ){
+
+    results.splice(stageIndex,1);
+
+    showAdmin();
+
+  }
+
+}
+
+
+/* =========================
+   حفظ التعديلات
+========================= */
+
+function saveData(){
+
+  localStorage.setItem(
+    "myResults",
+    JSON.stringify(results)
+  );
+
+
+  alert(
+    "تم حفظ جميع التعديلات"
+  );
+
+}
+
+
+/* =========================
+   تسجيل الخروج
+========================= */
+
+function logout(){
+
+  location.reload();
+
 }
 
 </script>
