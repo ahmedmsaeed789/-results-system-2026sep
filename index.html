@@ -1512,18 +1512,59 @@ function logout(){
 location.reload();
 
 }
-/* ==================================================
-   ESCAPE HTML
-================================================== */
-
-
-/* ==================================================
-   ESCAPE HTML
-================================================== */
+<script>
 
 function escapeHTML(value){
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
+function login(){
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const error = document.getElementById("error");
+
+    error.innerText = "";
+
+    if(username === "student" && password === "123456"){
+
+        document.getElementById("loginPage").classList.add("hidden");
+        document.getElementById("studentPage").classList.remove("hidden");
+
+        showStudent();
+        return;
+    }
+
+    if(username === "admin" && password === "admin123"){
+
+        document.getElementById("loginPage").classList.add("hidden");
+        document.getElementById("adminPage").classList.remove("hidden");
+
+        showAdmin();
+        return;
+    }
+
+    error.innerText = "اسم المستخدم أو كلمة المرور غير صحيحة";
+}
+
+document.getElementById("password").addEventListener("keydown", function(event){
+
+    if(event.key === "Enter"){
+        login();
+    }
+
+});
+
+function logout(){
+    location.reload();
+}
+
+</script>
+
+</body>
+</html>
